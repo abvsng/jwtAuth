@@ -9,7 +9,7 @@ async function signUp(req, res) {
   res.send("user added");
 }
 
-async function userExistChk(req, res, next) {
+async function userNameExistChk(req, res, next) {
   const { userId } = req.body;
   const userExist = await User.findOne({ userId: userId });
 
@@ -19,5 +19,6 @@ async function userExistChk(req, res, next) {
   next();
 }
 module.exports = {
-  signUp,userExistChk
+  signUp,
+  userNameExistChk,
 };
