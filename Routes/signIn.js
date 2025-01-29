@@ -1,12 +1,16 @@
 const { User } = require("../DB/mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 async function signIn(req, res) {
   const { userId, pwd } = req.query;
 
   const userData = await User.findOne({ userId: userId });
   const isPwdValid = bcrypt.compareSync(pwd, userData.pwd);
   if (!isPwdValid) return res.send("incorrect password");
-  res.send("signInSuccessfull");
+  const token = jwt.sign({ username: userData.username }, "your-secret-key", {
+    expiresIn: "1h",
+  });
+  res.json({ token });
 }
 
 async function userExistChk(req, res, next) {
