@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const { signUp, userNameExistChk } = require("./Routes/signUp");
 const { userExistChk, signIn } = require("./Routes/signIn");
-const { protectedGet } = require("./protectedGet");
+const { protectedGet } = require("./Routes/protectedGet");
 const { jwtVerify } = require("./middleware/jwtVerify");
 
 app.use(cors(), express.json());
