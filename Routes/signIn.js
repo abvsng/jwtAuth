@@ -7,7 +7,7 @@ async function signIn(req, res) {
   const userData = await User.findOne({ userId: userId });
   const isPwdValid = bcrypt.compareSync(pwd, userData.pwd);
   if (!isPwdValid) return res.send("incorrect password");
-  const token = jwt.sign({ username: userData.username }, "your-secret-key", {
+  const token = jwt.sign({ username: userData.username }, process.env.JWT_KEY, {
     expiresIn: "1h",
   });
   res.json({ token });
